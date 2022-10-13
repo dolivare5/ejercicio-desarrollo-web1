@@ -176,6 +176,79 @@ const problem3 = () => {
 
 }
 
+
+/**
+ * Calcular el promedio de edades de hombres, mujeres y de tod@ un grupo
+ * de alumnos.
+ */
+const problem4 = () => {
+    /**
+     * Se llena el array n alumnos y se calcula el promedio de edades de hombres,
+     * mujeres y de tod@ un grupo de alumnos.
+     */
+    const n = parseInt(prompt('¿Cuantos alumnos desea ingresar?'));
+    /* Se valida que el número de alumnos sea un número válido */
+    if (isNaN(n) || n === undefined || n <=0){
+        alert('Número no valido, inténtelo nuevamente ')
+        return;
+    }
+    /* Se crea un array de n alumnos */
+    const students = [];
+    /* Se llena el array de n alumnos */
+    let i = 0;
+    while ( i < n) {
+        /* Se le pregunta al usuario el nombre del alumno */
+        const name = prompt(`¿Cómo se llama el alumno o la alumna #${i+1}?`);
+        /* Se valida que el nombre del alumno sea un string válido */
+        if (name === undefined || name === null || name === ''){
+            alert('Nombre no valido, inténtelo nuevamente ')
+            continue;
+        }
+        /* Se le pregunta al usuario el género del alumno */
+        let gender = prompt(`¿Cuál es el género de ${name}? (M/F)`);
+        gender = gender.toUpperCase();
+        /* Se valida que el género sea un string válido */
+        if((gender === undefined || gender === null || gender === '') || (gender !== 'M' && gender !== 'F')){
+            alert('Género no valido, inténtelo nuevamente ')
+            continue;
+        }
+        /* Se le pregunta al usuario la edad del alumno */
+        const age = parseInt(prompt(`¿Cuál es la edad de ${name}?`));
+        /* Se valida que la edad sea un número válido */
+        if (isNaN(age) || age === undefined || age <=0){
+            alert('Edad no valida, inténtelo nuevamente ')
+            continue;
+        }
+        /* Se agrega el objeto alumno al array de alumnos */
+        const student = { name, gender, age };
+        students[i] = {name, gender, age};
+        i++;
+    }
+
+    /**
+     * Se calcula el promedio de edades de hombres. Para ello se filtran los alumnos
+     * que son hombres y se obtiene un array de hombres y se calcula el promedio de edades de hombres.
+     */
+    console.log(students);
+    const ageMen = students.filter((student) => student.gender === 'M');
+     const sumAgeMen = ageMen.reduce((acc, student) => acc + student.age, 0);
+     const countMen = ageMen.length;
+     const averageAgeMen = sumAgeMen / countMen;
+
+    /* Se calcula el promedio de edades de mujeres. Pero de manera diferente. Más corta */
+    const averageAgeWomen = students.filter((student) => student.gender === 'F')
+            .reduce((acc, student) => acc + student.age, 0) /
+        students.filter((student) => student.gender === 'F').length
+    ;
+
+    /* Se calcula el promedio de edades del grupo de alumnos */
+    const averageAgeAll = students.reduce((acc, student) => acc + student.age, 0) / students.length;
+    /* Se imprime el promedio de edades de hombres, mujeres y del grupo de alumnos */
+    alert(`El promedio de edades de hombres es de ${averageAgeMen} años, el promedio de edades de mujeres es de ${averageAgeWomen} años y el promedio de edades de todo el grupo de alumnos es de ${averageAgeAll} años`);
+
+}
+
 //problem1();
 //problem2();
-problem3();
+//problem3();
+problem4();

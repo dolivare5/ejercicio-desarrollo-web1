@@ -345,9 +345,204 @@ const problem6 = () => {
     })
 }
 
+/**
+ * Solucionar el siguiente problema:
+ * En un supermercado una ama de casa pone en su carrito los artículos que
+ * va tomando de los estantes. La señora quiere asegurarse de que el cajero
+ * le cobre bien lo que ella ha comprado, por lo que cada vez que toma un
+ * artículo anota su precio junto con la cantidad de artículos iguales que ha
+ * tomado y determina cuanto dinero gastará en ese artículo; a esto le suma lo
+ * que irá gastando en los demás artículos, hasta que decide que ya tomó
+ * tod@ lo que necesitaba. Ayúdele a esta señora a obtener el total de su
+ * compra.
+ */
+const problem7 = () => {
+    /* Se crea un arreglo de objetos con los artículos que la señora va a comprar */
+    let shoppingCart = [];
+    /* Variable que acumulará el total de la compra */
+    let shoppingCartTotal = 0;
+    let op = 0;
+    do {
+        op = parseInt(prompt('¿Qué desea hacer? \n1. Agregar producto o unidades al carrito \n2. Eliminar producto \n3. Quitar unidades de un producto \n4. Ver carrito \n5. Salir'));
+        switch (op) {
+            case 1:
+                /* Se crea un nuevo producto. Si el producto ya existe en el carrito se le suma la cantidad */
+                const product = addProduct(shoppingCart);
+                if (product) {
+                    const productIndex = shoppingCart.findIndex((prod) => prod.productName === product.productName);
+                    if (productIndex >= 0) {
+                        shoppingCart[productIndex].productUnits += product.productUnits;
+                        shoppingCart[productIndex].total += product.total;
+                    }else{
+                        shoppingCart.push(product);
+                    }
+                    shoppingCartTotal += product.priceProduct * product.productUnits;
+                    showProduct(product, shoppingCartTotal)
+                }
+                break;
+            case 2:
+                const productIdx = findOneProductById(shoppingCart, 'eliminar', shoppingCartTotal);
+                if (productIdx !== -1) {
+                    /* Se actualiza el total de la compra */
+                    shoppingCartTotal -= shoppingCart[productIdx].priceProduct * shoppingCart[productIdx].productUnits;
+                    /**
+                     *Se elimina el producto del carrito. El método splice recibe como primer parámetro el índice del
+                     *elemento a eliminar y como segundo parámetro la cantidad de elementos a eliminar
+                     **/
+                    shoppingCart.splice(productIdx, 1);
+                    alert('Producto eliminado correctamente')
+                }
+                break;
+            case 3:
+                /* Se busca el producto a modificar */
+                const prodIdx = findOneProductById(shoppingCart, 'modificar', shoppingCartTotal);
+                /* Si el producto existe se le pide al usuario que ingrese la nueva cantidad */
+                if (prodIdx !== -1) {
+                    /* Se resta el total de la compra del producto que se va a modificar */
+                    const product = takeOutUnits(shoppingCart[prodIdx]);
+                    if (product) {
+                        shoppingCartTotal -= product.priceProduct * product.productUnits;
+                        shoppingCart[prodIdx] = product;
+                        shoppingCartTotal += product.priceProduct * product.productUnits;
+                        showProduct(product, shoppingCartTotal, 'modificadas')
+                    }
+                }
+                break;
+            case 4:
+                /* Se muestra el carrito */
+                const products = shoppingCart.map((product) => {
+                    const {productName, productUnits, priceProduct} = product
+                    return `${productName} - Cantidad: ${productUnits} - Precio por unidad: ${priceProduct} - Precio total: ${priceProduct * productUnits}\n`
+                })
+                alert(`Productos en el carrito: \n${products} El valor del carrito actual es de ${shoppingCartTotal}`)
+                break;
+            case 5:
+                alert('Gracias por su compra')
+                break;
+            default:
+                alert('Opción no válida, inténtelo nuevamente')
+        }
+    } while (op !== 5){}
+}
+
+/**
+ * Método que permite agregar un producto al carrito
+ */
+const addProduct = (shoppingCart) => {
+    /* Si existe un producto con el mismo nombre, se le suma la cantidad de unidades */
+    const productName = takeOutProductName();
+    if (productName) {
+        const productUnits = addUnits(productName);
+        if (productUnits) {
+            /* Se busca si el producto ya existe en el carrito */
+            let priceProduct;
+            const product = shoppingCart.find((product) => product.productName === productName);
+            priceProduct = product ? product.priceProduct : takeOutPriceProduct();
+            /* Si existe un producto con el mismo nombre, se le suma la cantidad de unidades */
+            if (priceProduct) {
+                return {
+                    id: shoppingCart.length + 1,
+                    productName,
+                    productUnits,
+                    priceProduct
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Método que permite pedir el nombre del producto y lo retorna.
+ */
+const takeOutProductName = () => {
+    const productName = prompt('Ingrese el nombre del producto');
+    if (productName === '' || productName === null) {
+        alert('Nombre no valido, inténtelo nuevamente')
+        return
+    }
+    return productName
+}
+
+/**
+ * Método que permite pedir la cantidad de unidades del producto y las retorna.
+ */
+const addUnits = (productName) => {
+    const productUnits = parseInt(prompt(`Ingrese la cantidad de unidades de ${productName}`));
+    if (isNaN(productUnits) || productUnits === undefined || productUnits === null || productUnits < 0) {
+        alert('Cantidad no valida, inténtelo nuevamente')
+        return
+    }
+    return productUnits
+}
+
+/**
+ * Método que permite pedir el precio del producto y lo retorna.
+ */
+const takeOutPriceProduct = () => {
+    const priceProduct = parseFloat(prompt('Ingrese el precio del producto'));
+    if (isNaN(priceProduct) || priceProduct === undefined) {
+        alert('Precio no valido, inténtelo nuevamente')
+        return
+    }
+    return priceProduct
+}
+
+/**
+ * Esta función busca un producto en el carrito de compras por el id
+ * @param shoppingCart
+ * @param action
+ * @param shoppingCartTotal
+ * @return {*}
+ */
+const findOneProductById = (shoppingCart, action, shoppingCartTotal) => {
+    /* S extrae el nombre de todos los productos que se encuentran en el carrito  con su respectiva cantidad y precio */
+    const products = shoppingCart.map((product) => {
+        const {id, productName, productUnits, priceProduct} = product
+        return `Código: ${id} - ${productName} - Cantidad: ${productUnits} - Precio por unidad: ${priceProduct} - Precio total: ${priceProduct * productUnits}\n`
+    })
+    /* Se le pregunta al usuario el producto que eliminar, agregar o modificar */
+    const op = parseInt(prompt(`Ingrese el código del producto del cual desea ${action}? \n${products} El valor del carrito actual es de ${shoppingCartTotal}`))
+    /* Se valida que el nombre del producto sea un string válido */
+    if (isNaN(op) || op === undefined) {
+        alert('Opción, inténtelo nuevamente')
+        return;
+    }
+    /* Se valida que el producto no exista */
+    // Array Method que permite regresar el índice de un elemento en un array
+    const p = shoppingCart.findIndex((product) => product.id === op);
+    console.log(p)
+    return p
+}
+
+/**
+ * Método que permite mostrar el producto agregado al carrito
+ */
+const showProduct = (product, shoppingCartTotal, action = 'agregado') => {
+    const {productName, productUnits, priceProduct} = product
+    alert(`Producto ${action}: \n${productName} - Cantidad: ${productUnits} - Precio por unidad: ${priceProduct} - Precio total: ${priceProduct * productUnits}\n El valor del carrito actual es de ${shoppingCartTotal}`)
+}
+
+/**
+ * Método que permite actualizar la cantidad de unidades de un producto
+ */
+const takeOutUnits = (product) => {
+    const {productName, productUnits, priceProduct} = product
+    /* Se le pide la nueva cantidad de unidades. Pueden ser más o menos que las actuales */
+    const productUnits2 = addUnits(productName);
+    /* Si la cantidad de unidades es mayor a 0, se actualiza el producto  y se retorna */
+    if (productUnits2) {
+        return {
+            id: product.id,
+            productName,
+            productUnits: productUnits2,
+            priceProduct
+        }
+    }
+}
 //problem1();
 //problem2();
 //problem3();
 //problem4();
 //problem5();
-problem6();
+//problem6();
+problem7();

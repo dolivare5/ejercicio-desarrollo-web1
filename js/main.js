@@ -248,7 +248,46 @@ const problem4 = () => {
 
 }
 
+/**
+ * 5. Encontrar el menor valor de un conjunto de n números dados
+ */
+const problem5 = () => {
+    /* Se le pregunta al usuario cuantos números desea ingresar */
+    const n = parseInt(prompt('¿Cuantos números desea ingresar?'));
+    /* Se valida que el número sea un número válido */
+    if (isNaN(n) || n === undefined || n <=0){
+        alert('Valor no valido, inténtelo nuevamente ')
+        return;
+    }
+    /* Se le pregunta al usuario los números que desea ingresar */
+    const numbers = prompt(`Ingrese los ${n} números separados por coma (,)`);
+    /* Se valida que los números sean un string válido */
+    if (numbers === undefined || numbers === null || numbers === ''){
+        alert('Valor no valido, inténtelo nuevamente ')
+        return;
+    }
+    /* Se convierte el string en un array */
+    const numbersArray = numbers.split(',');
+    /* Se valida que el array tenga la cantidad de números que el usuario ingresó */
+    if (numbersArray.length !== n){
+        alert('Valor no valido, inténtelo nuevamente ')
+        return;
+    }
+    /* Se convierte el array de strings a un array de números */
+    const numbersArrayInt = numbersArray.map((number) => parseInt(number));
+    /* Se valida que los números sean números válidos */
+    if (numbersArrayInt.some((number) => isNaN(number))){
+        alert('Valor no valido, inténtelo nuevamente ')
+        return;
+    }
+    /* Se obtiene el menor número del array */
+    const minNumber = Math.min(...numbersArrayInt);
+    alert(`El menor número es ${minNumber}`)
+}
+
+
 //problem1();
 //problem2();
 //problem3();
-problem4();
+//problem4();
+//problem5();

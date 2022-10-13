@@ -98,4 +98,56 @@ const generatePlate = cars => {
     return plate;
 }
 
-problem1();
+
+
+/**
+ * Solucionar el siguiente problema:
+ * Un Zoólogo pretende determinar el porcentaje de animales que hay en las
+ * siguiente categorias de edades: 0 a 1 año, de mas de 1 año y menos de 3 y
+ * de 3 o mas años. El zoológico todavía no está seguro del animal que va
+ * estudiar. Si se decide por elefantes solo tomará una muestra de 20 de ellos;
+ * si se decide por jirafas, tomara 15 de muestras y si son chompancés tomará
+ * 40.
+ */
+
+const problem2 = () => {
+    /**
+     * Se crea un objeto que almacena la cantidad de animales que hay en cada categoría de edad
+     */
+    const animals = [
+        {name: 'Elefante', age: 1, quantity: 20},
+        {name: 'Jirafa', age: 2, quantity: 15},
+        {name: 'Chimpancé', age: 3, quantity: 40},
+    ]
+
+    /* Se generan edades aleatorias para el animal seleccionado. Para ello se le pregunta al usuario que animal desea estudiar */
+    const animal = parseInt(prompt('¿Qué animal desea estudiar?\n1. Elefante\n2. Jirafa\n3. Chimpancé'));
+    /* Se valida que el animal sea un número válido */
+    if (isNaN(animal) || animal === undefined || animal <= 0 || animal > 3){
+        alert('Opción no valida, inténtelo nuevamente')
+        return;
+    }
+    /* Se extrae el animal seleccionado */
+    const animalSelected = animals[animal - 1];
+    /* Se genera un array con las edades aleatorias. Esto generar edades aleatorias entre 0 y 10, incluyendo decimales */
+    const ages = [];
+    for (let i = 0; i < animalSelected.quantity; i++) {
+        ages.push(Math.round(Math.random() * 10));
+        console.log(`El ${animalSelected.name} ${i + 1} tiene ${ages[i]} años`);
+    }
+    /* Ahora se filtran las edades para saber cuantas edades hay en cada categoría */
+    const ages0to1 = ages.filter((age) => age >= 0 && age <= 1);
+    const ages1to3 = ages.filter((age) => age > 1 && age < 3);
+    const ages3toMore = ages.filter((age) => age >= 3);
+
+    /* Se calcula el porcentaje de edades en cada categoría */
+    const percentage0to1 = (ages0to1.length * 100) / animalSelected.quantity;
+    const percentage1to3 = (ages1to3.length * 100) / animalSelected.quantity;
+    const percentage3toMore = (ages3toMore.length * 100) / animalSelected.quantity;
+
+    /* Se muestran los resultados */
+    console.log(`El porcentaje de edades entre 0 y 1 año es de ${percentage0to1}%, entre 1 y 3 años es de ${percentage1to3}% y de 3 años o más es de ${percentage3toMore}%`)
+}
+
+//problem1();
+problem2();

@@ -98,10 +98,7 @@ const generatePlate = cars => {
     return plate;
 }
 
-
-
 /**
- * Solucionar el siguiente problema:
  * Un Zoólogo pretende determinar el porcentaje de animales que hay en las
  * siguiente categorias de edades: 0 a 1 año, de mas de 1 año y menos de 3 y
  * de 3 o mas años. El zoológico todavía no está seguro del animal que va
@@ -109,7 +106,6 @@ const generatePlate = cars => {
  * si se decide por jirafas, tomara 15 de muestras y si son chompancés tomará
  * 40.
  */
-
 const problem2 = () => {
     /**
      * Se crea un objeto que almacena la cantidad de animales que hay en cada categoría de edad
@@ -149,5 +145,37 @@ const problem2 = () => {
     console.log(`El porcentaje de edades entre 0 y 1 año es de ${percentage0to1}%, entre 1 y 3 años es de ${percentage1to3}% y de 3 años o más es de ${percentage3toMore}%`)
 }
 
+/**
+ * Una empresa se requiere calcular el salario semanal de cada uno de los n
+ * obreros que laboran en ella. El salario se obtiene de la siguiente forma:
+ * a. Si el obrero trabaja 40 horas o menos se le paga $20 por hora
+ * b. Si trabaja mas de 40 horas se le paga $20 por cada una de las primeras
+ * 40 horas y $25 por cada hora extra.
+ */
+const problem3 = () => {
+    const workers = parseInt(prompt('¿Cuantos obreros desea registrar?'));
+    /* Se valida que el número de obreros sea un número válido */
+    if (isNaN(workers) || workers === undefined || workers <=0){
+        alert('Valor no valido, inténtelo nuevamente ')
+        return;
+    }
+    let total = 0;
+    for (let i = 0; i < workers; i++) {
+        const hours = parseInt(prompt(`¿Cuantas horas trabajo el obrero ${i+1}`));
+        /* Se valida que el número de horas sea un número válido */
+        if (isNaN(hours) || hours === undefined || hours <=0){
+            alert('Valor no valido, inténtelo nuevamente ')
+            return;
+        }
+        const salaryPerWorker = hours <= 40 ? hours * 20 : (40 * 20) + ((hours - 40) * 25);
+        total+= salaryPerWorker;
+        alert(`El obrero ${i+1} trabajo ${hours} horas y su salario es de $${salaryPerWorker}`);
+
+    }
+    alert(`El total a pagar a los obreros es $${total}`)
+
+}
+
 //problem1();
-problem2();
+//problem2();
+problem3();

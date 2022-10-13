@@ -286,8 +286,68 @@ const problem5 = () => {
 }
 
 
+/**
+ * Cinco miembros de un club contra la obesidad desean saber cuanto han
+ * bajado o subido de peso desde la última vez que se reunieron. Para esto se
+ * debe realizar un ritual de pesaje en donde cada uno se pesa en diez básculas
+ * distintas para así tener el pormedio mas exacto de su peso. Si existe
+ * diferencia positiva entre este promedio de peso y el peso de la última
+ * vez que se reunieron, significa que subieron de peso. Pero si la diferencia
+ * es negativa, significa que bajaron. Lo que el problema requere es que por
+ * cada persona se imprima un letrero que diga: “SUBIÓ” o “BAJÓ” y la cantidad
+ * de kilos que subió o bajó de peso.
+ */
+const problem6 = () => {
+    /**
+     * Se crea un arreglo de objetos con los nombres de los miembros del club y su peso registrado
+     * en la última reunión. Luego se simula el ritual de pesaje para cada miembro del club en las
+     * diez básculas distintas y se calcula el promedio de peso de cada uno. Por último se compara
+     * el promedio de peso con el peso registrado en la última reunión y se imprime un mensaje
+     * indicando si subió o bajó de peso y la cantidad de kilos que subió o bajó.
+     */
+    const clubMembers = [
+        {name: 'Juan', weight: 80.5},
+        {name: 'Pedro', weight: 70.2},
+        {name: 'Luis', weight: 90.2},
+        {name: 'Ana', weight: 60.7},
+        {name: 'María', weight: 75.3}
+    ]
+
+    /* Se recorre el arreglo de miembros del club */
+    clubMembers.forEach((member) => {
+        console.log(`A continuación se pesará a ${member.name} que pesó ${member.weight} kilos en la última reunión`);
+        /* Weight es una variable que acumulará el peso de cada miembro en cada báscula */
+        let weight = 0
+        /* Se recorre las diez básculas */
+        for (let i = 0; i < 10; i++) {
+            /* Se le genera un peso aleatorio al miembro en la báscula. Otra forma seria pedirle al usuario que ingrese el peso */
+            /* Se genera un número aleatorio entre 40 y 100kg */
+            const weightBascule = (Math.random() * (100 - 40)) + 40;
+            console.log(`El peso de ${member.name} en la báscula ${i + 1} es de ${weightBascule} kilos`);
+            /* Se acumula el peso del miembro en la báscula */
+            weight += weightBascule;
+            if (i < 9 ){
+                console.log(`Ahora se pesará a ${member.name} en la báscula ${i + 2}`);
+            }
+        }
+        /* Se calcula el promedio de peso del miembro */
+        const averageWeight = weight / 10
+        /* Se calcula la diferencia de peso entre el promedio de peso y el peso registrado en la última reunión */
+        const difference = averageWeight - member.weight
+        if (difference > 0) {
+            console.log(`${member.name} subistes ${difference} kilos. Al comienzo pesabas ${member.weight} kilos y ahora  ${averageWeight} kilos. Cuidado con la comida!`);
+        } else {
+            console.log(`${member.name} bajastes ${Math.abs(difference)} kilos. Al comienzo pesabas ${member.weight} kilos y ahora  ${averageWeight} kilos. Felicitaciones!`);
+        }
+        console.log('--------------------------------------------------------------------------------------');
+        console.log('Siguiente miembro');
+        console.log('--------------------------------------------------------------------------------------');
+    })
+}
+
 //problem1();
 //problem2();
 //problem3();
 //problem4();
 //problem5();
+problem6();

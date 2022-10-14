@@ -907,18 +907,69 @@ const problem15 = () => {
     console.log(`La población del país B demoró ${year} años en superar a la del país A y ocurrió en el año ${1994 + year}`)
 }
 
-//problem1();
-//problem2();
-//problem3();
-//problem4();
-//problem5();
-//problem6();
-//problem7();
-//problem8();
-//problem9();
-//problem10();
-//problem11();
-//problem12();
-//problem13();
-//problem14();
-problem15();
+/**
+ * Se crea un menu para que el usuario pueda elegir el problema que desea
+ * ejecutar.
+ */
+const menu = () => {
+    const option = parseInt(prompt('' +
+        'Ingrese el número del problema que desea ejecutar: \n1. Problema 1 ' +
+        '\n2. Problema 2 \n3. Problema 3 \n4. Problema 4 \n5. Problema 5 \n6. Problema 6 \n7. Problema 7 ' +
+        '\n8. Problema 8 \n9. Problema 9 \n10. Problema 10 \n11. Problema 11 \n12. Problema 12 \n13. Problema 13 ' +
+        '\n14. Problema 14 \n15. Problema 15. \n0. Salir \nPor favor abra la consola para ver los resultados de los problemas')
+    );
+    switch (option) {
+        case 0:
+            return;
+        case 1:
+            problem1();
+            break;
+        case 2:
+            problem2();
+            break;
+        case 3:
+            problem3();
+            break;
+        case 4:
+            problem4();
+            break;
+        case 5:
+            problem5();
+            break;
+        case 6:
+            problem6();
+            break;
+        case 7:
+            problem7();
+            break;
+        case 8:
+            problem8();
+            break;
+        case 9:
+            problem9();
+            break;
+        case 10:
+            problem10();
+            break;
+        case 11:
+            problem11();
+            break;
+        case 12:
+            problem12();
+            break;
+        case 13:
+            problem13();
+            break;
+        case 14:
+            problem14();
+            break;
+        case 15:
+            problem15();
+            break;
+        default:
+            alert('Opción no valida, inténtelo nuevamente')
+            break;
+    }
+}
+
+menu();

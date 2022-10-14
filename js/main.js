@@ -852,6 +852,33 @@ const problem13 = () => {
     alert(`La serie de fibonacci es: ${fibonacci} \nLa cantidad de números pares es: ${even} \nLa cantidad de números impares es: ${odd} \nLa cantidad de ceros es: ${zero}`)
 }
 
+
+/**
+ * Realice un método que permita calcular el MCD (Máximo Común Divisor )
+ * entre dos números.
+ */
+const problem14 = () => {
+    const num1 = parseInt(prompt('Ingrese el primer número'));
+    const num2 = parseInt(prompt('Ingrese el segundo número'));
+    if (isNaN(num1) || isNaN(num2)) {
+        alert('Número no valido, inténtelo nuevamente')
+        return
+    }
+    const mcd = calculateMCD(num1, num2);
+    alert(`El MCD entre ${num1} y ${num2} es ${mcd}`)
+}
+
+const calculateMCD = (num1, num2) => {
+    /* Se crea la variable mcd que almacenará el MCD entre los dos números */
+    let mcd = 0;
+    for (let i = 1; i <= num1 && i <= num2; i++) {
+        if (num1 % i === 0 && num2 % i === 0) {
+            mcd = i;
+        }
+    }
+    return mcd;
+}
+
 //problem1();
 //problem2();
 //problem3();
@@ -864,4 +891,5 @@ const problem13 = () => {
 //problem10();
 //problem11();
 //problem12();
-problem13();
+//problem13();
+problem14();

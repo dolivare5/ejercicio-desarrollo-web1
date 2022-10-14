@@ -110,16 +110,16 @@ const problem2 = () => {
     /**
      * Se crea un objeto que almacena la cantidad de animales que hay en cada categoría de edad
      */
-    const animals = [
-        {name: 'Elefante', age: 1, quantity: 20},
-        {name: 'Jirafa', age: 2, quantity: 15},
-        {name: 'Chimpancé', age: 3, quantity: 40},
-    ]
+    const animals = [{name: 'Elefante', age: 1, quantity: 20}, {
+        name: 'Jirafa',
+        age: 2,
+        quantity: 15
+    }, {name: 'Chimpancé', age: 3, quantity: 40},]
 
     /* Se generan edades aleatorias para el animal seleccionado. Para ello se le pregunta al usuario que animal desea estudiar */
     const animal = parseInt(prompt('¿Qué animal desea estudiar?\n1. Elefante\n2. Jirafa\n3. Chimpancé'));
     /* Se valida que el animal sea un número válido */
-    if (isNaN(animal) || animal === undefined || animal <= 0 || animal > 3){
+    if (isNaN(animal) || animal === undefined || animal <= 0 || animal > 3) {
         alert('Opción no valida, inténtelo nuevamente')
         return;
     }
@@ -155,21 +155,21 @@ const problem2 = () => {
 const problem3 = () => {
     const workers = parseInt(prompt('¿Cuantos obreros desea registrar?'));
     /* Se valida que el número de obreros sea un número válido */
-    if (isNaN(workers) || workers === undefined || workers <=0){
+    if (isNaN(workers) || workers === undefined || workers <= 0) {
         alert('Valor no valido, inténtelo nuevamente ')
         return;
     }
     let total = 0;
     for (let i = 0; i < workers; i++) {
-        const hours = parseInt(prompt(`¿Cuantas horas trabajo el obrero ${i+1}`));
+        const hours = parseInt(prompt(`¿Cuantas horas trabajo el obrero ${i + 1}`));
         /* Se valida que el número de horas sea un número válido */
-        if (isNaN(hours) || hours === undefined || hours <=0){
+        if (isNaN(hours) || hours === undefined || hours <= 0) {
             alert('Valor no valido, inténtelo nuevamente ')
             return;
         }
         const salaryPerWorker = hours <= 40 ? hours * 20 : (40 * 20) + ((hours - 40) * 25);
-        total+= salaryPerWorker;
-        alert(`El obrero ${i+1} trabajo ${hours} horas y su salario es de $${salaryPerWorker}`);
+        total += salaryPerWorker;
+        alert(`El obrero ${i + 1} trabajo ${hours} horas y su salario es de $${salaryPerWorker}`);
 
     }
     alert(`El total a pagar a los obreros es $${total}`)
@@ -188,7 +188,7 @@ const problem4 = () => {
      */
     const n = parseInt(prompt('¿Cuantos alumnos desea ingresar?'));
     /* Se valida que el número de alumnos sea un número válido */
-    if (isNaN(n) || n === undefined || n <=0){
+    if (isNaN(n) || n === undefined || n <= 0) {
         alert('Número no valido, inténtelo nuevamente ')
         return;
     }
@@ -196,11 +196,11 @@ const problem4 = () => {
     const students = [];
     /* Se llena el array de n alumnos */
     let i = 0;
-    while ( i < n) {
+    while (i < n) {
         /* Se le pregunta al usuario el nombre del alumno */
-        const name = prompt(`¿Cómo se llama el alumno o la alumna #${i+1}?`);
+        const name = prompt(`¿Cómo se llama el alumno o la alumna #${i + 1}?`);
         /* Se valida que el nombre del alumno sea un string válido */
-        if (name === undefined || name === null || name === ''){
+        if (name === undefined || name === null || name === '') {
             alert('Nombre no valido, inténtelo nuevamente ')
             continue;
         }
@@ -208,14 +208,14 @@ const problem4 = () => {
         let gender = prompt(`¿Cuál es el género de ${name}? (M/F)`);
         gender = gender.toUpperCase();
         /* Se valida que el género sea un string válido */
-        if((gender === undefined || gender === null || gender === '') || (gender !== 'M' && gender !== 'F')){
+        if ((gender === undefined || gender === null || gender === '') || (gender !== 'M' && gender !== 'F')) {
             alert('Género no valido, inténtelo nuevamente ')
             continue;
         }
         /* Se le pregunta al usuario la edad del alumno */
         const age = parseInt(prompt(`¿Cuál es la edad de ${name}?`));
         /* Se valida que la edad sea un número válido */
-        if (isNaN(age) || age === undefined || age <=0){
+        if (isNaN(age) || age === undefined || age <= 0) {
             alert('Edad no valida, inténtelo nuevamente ')
             continue;
         }
@@ -228,16 +228,14 @@ const problem4 = () => {
      * Se calcula el promedio de edades de hombres. Para ello se filtran los alumnos
      * que son hombres y se obtiene un array de hombres y se calcula el promedio de edades de hombres.
      */
-     const ageMen = students.filter((student) => student.gender === 'M');
-     const sumAgeMen = ageMen.reduce((acc, student) => acc + student.age, 0);
-     const countMen = ageMen.length;
-     const averageAgeMen = sumAgeMen / countMen;
+    const ageMen = students.filter((student) => student.gender === 'M');
+    const sumAgeMen = ageMen.reduce((acc, student) => acc + student.age, 0);
+    const countMen = ageMen.length;
+    const averageAgeMen = sumAgeMen / countMen;
 
     /* Se calcula el promedio de edades de mujeres. Pero de manera diferente. Más corta */
     const averageAgeWomen = students.filter((student) => student.gender === 'F')
-            .reduce((acc, student) => acc + student.age, 0) /
-        students.filter((student) => student.gender === 'F').length
-    ;
+        .reduce((acc, student) => acc + student.age, 0) / students.filter((student) => student.gender === 'F').length;
 
     /* Se calcula el promedio de edades del grupo de alumnos */
     const averageAgeAll = students.reduce((acc, student) => acc + student.age, 0) / students.length;
@@ -253,28 +251,28 @@ const problem5 = () => {
     /* Se le pregunta al usuario cuantos números desea ingresar */
     const n = parseInt(prompt('¿Cuantos números desea ingresar?'));
     /* Se valida que el número sea un número válido */
-    if (isNaN(n) || n === undefined || n <=0){
+    if (isNaN(n) || n === undefined || n <= 0) {
         alert('Valor no valido, inténtelo nuevamente ')
         return;
     }
     /* Se le pregunta al usuario los números que desea ingresar */
     const numbers = prompt(`Ingrese los ${n} números separados por coma (,)`);
     /* Se valida que los números sean un string válido */
-    if (numbers === undefined || numbers === null || numbers === ''){
+    if (numbers === undefined || numbers === null || numbers === '') {
         alert('Valor no valido, inténtelo nuevamente ')
         return;
     }
     /* Se convierte el string en un array */
     const numbersArray = numbers.split(',');
     /* Se valida que el array tenga la cantidad de números que el usuario ingresó */
-    if (numbersArray.length !== n){
+    if (numbersArray.length !== n) {
         alert('Valor no valido, inténtelo nuevamente ')
         return;
     }
     /* Se convierte el array de strings a un array de números */
     const numbersArrayInt = numbersArray.map((number) => parseInt(number));
     /* Se valida que los números sean números válidos */
-    if (numbersArrayInt.some((number) => isNaN(number))){
+    if (numbersArrayInt.some((number) => isNaN(number))) {
         alert('Valor no valido, inténtelo nuevamente ')
         return;
     }
@@ -303,13 +301,10 @@ const problem6 = () => {
      * el promedio de peso con el peso registrado en la última reunión y se imprime un mensaje
      * indicando si subió o bajó de peso y la cantidad de kilos que subió o bajó.
      */
-    const clubMembers = [
-        {name: 'Juan', weight: 80.5},
-        {name: 'Pedro', weight: 70.2},
-        {name: 'Luis', weight: 90.2},
-        {name: 'Ana', weight: 60.7},
-        {name: 'María', weight: 75.3}
-    ]
+    const clubMembers = [{name: 'Juan', weight: 80.5}, {name: 'Pedro', weight: 70.2}, {
+        name: 'Luis',
+        weight: 90.2
+    }, {name: 'Ana', weight: 60.7}, {name: 'María', weight: 75.3}]
 
     /* Se recorre el arreglo de miembros del club */
     clubMembers.forEach((member) => {
@@ -324,7 +319,7 @@ const problem6 = () => {
             console.log(`El peso de ${member.name} en la báscula ${i + 1} es de ${weightBascule} kilos`);
             /* Se acumula el peso del miembro en la báscula */
             weight += weightBascule;
-            if (i < 9 ){
+            if (i < 9) {
                 console.log(`Ahora se pesará a ${member.name} en la báscula ${i + 2}`);
             }
         }
@@ -371,7 +366,7 @@ const problem7 = () => {
                     if (productIndex >= 0) {
                         shoppingCart[productIndex].productUnits += product.productUnits;
                         shoppingCart[productIndex].total += product.total;
-                    }else{
+                    } else {
                         shoppingCart.push(product);
                     }
                     shoppingCartTotal += product.priceProduct * product.productUnits;
@@ -420,7 +415,9 @@ const problem7 = () => {
             default:
                 alert('Opción no válida, inténtelo nuevamente')
         }
-    } while (op !== 5){}
+    } while (op !== 5)
+    {
+    }
 }
 
 /**
@@ -439,10 +436,7 @@ const addProduct = (shoppingCart) => {
             /* Si existe un producto con el mismo nombre, se le suma la cantidad de unidades */
             if (priceProduct) {
                 return {
-                    id: shoppingCart.length + 1,
-                    productName,
-                    productUnits,
-                    priceProduct
+                    id: shoppingCart.length + 1, productName, productUnits, priceProduct
                 }
             }
         }
@@ -530,10 +524,7 @@ const takeOutUnits = (product) => {
     /* Si la cantidad de unidades es mayor a 0, se actualiza el producto  y se retorna */
     if (productUnits2) {
         return {
-            id: product.id,
-            productName,
-            productUnits: productUnits2,
-            priceProduct
+            id: product.id, productName, productUnits: productUnits2, priceProduct
         }
     }
 }
@@ -554,13 +545,11 @@ const takeOutUnits = (product) => {
  */
 const problem8 = () => {
     const prices = [1000, 800, 500, 300, 200];
-    const categories = [
-        { id: 0, name: 'Niños', discount: 0},
-        { id: 1, name: 'Jovenes', discount: 0.25},
-        { id: 2, name: 'Adultos', discount: 0.1},
-        { id: 3, name: 'Adultos mayores', discount: 0.25},
-        { id: 4, name: 'Ancianos', discount: 0.35}
-    ];
+    const categories = [{id: 0, name: 'Niños', discount: 0}, {id: 1, name: 'Jovenes', discount: 0.25}, {
+        id: 2,
+        name: 'Adultos',
+        discount: 0.1
+    }, {id: 3, name: 'Adultos mayores', discount: 0.25}, {id: 4, name: 'Ancianos', discount: 0.35}];
     const people = [];
     let op = 0;
     do {
@@ -585,7 +574,8 @@ const problem8 = () => {
             default:
                 alert('Opción no válida, inténtelo nuevamente')
         }
-    } while (op !== 3){
+    } while (op !== 3)
+    {
         /* Se calculan los ingresos totales */
         const total = people.reduce((acc, person) => {
             const {category} = person
@@ -639,8 +629,7 @@ const problem9 = () => {
     /* Genero 100 ventas aleatorias */
     for (let i = 0; i < 100; i++) {
         sales.push({
-            id: i + 1,
-            sales: Math.floor(Math.random() * 1000000000)
+            id: i + 1, sales: Math.floor(Math.random() * 1000000000)
         })
     }
     /* Se calcula la comisión de cada vendedor */
@@ -675,6 +664,88 @@ const problem9 = () => {
 
 }
 
+/**
+ * La empresa Encuestas S.A desea crear una función que les permita conocer
+ * de los 50.000 votos obtenidos por 3 candidatos, cual de estos fue el ganador
+ * o indicar si hubo empate y la cantidad de votos obtenidos.
+ */
+const problem10 = () => {
+    /**
+     * Creo un arreglo de 50.000 posiciones con números aleatorios entre 1 y 3
+     */
+    const votes = [];
+    for (let i = 0; i < 50000; i++) {
+        const vote = Math.floor(Math.random() * 3) + 1
+        console.log(`Voto #${i + 1} a favor del candidato ${vote}`)
+        votes.push(vote);
+    }
+    /**
+     * Recorro el arreglo y cuento cuántos votos obtuvo cada candidato. Se hace uso del metodo reduce
+     * para recorrer el arreglo y sumar los votos de cada candidato. acc es el acumulador, el cual se va
+     * actualizando en cada iteración, y el valor inicial de acc es un objeto con las propiedades de los
+     * candidatos, y el valor inicial de cada propiedad es 0. vote es el valor actual del arreglo, el cual
+     * se va actualizando en cada iteración.
+     */
+    const votesCount = votes.reduce((acc, vote) => {
+        /**
+         * Se verifica si el candidato ya tiene votos, si es así, se le suma 1, si no, se le asigna 1.
+         */
+        if (acc[vote]) {
+            acc[vote] += 1;
+        } else {
+            acc[vote] = 1;
+        }
+        /**
+         * Se retorna el objeto con los votos actualizados
+         */
+        return acc;
+    },
+    /**
+    * Se inicializa el objeto con las propiedades de los candidatos y el valor inicial de cada propiedad es 0
+    */
+    {
+        /**
+         * 1: 0, hace referencia a que el candidato 1 tiene 0 votos, y así sucesivamente
+         */
+         1: 0, 2: 0, 3: 0
+    });
+    /**
+     * Comparo los votos obtenidos por cada candidato y determino el ganador
+     * o si hubo empate y la cantidad de votos obtenidos por cada uno.
+     */
+    const {1: candidate1, 2: candidate2, 3: candidate3} = votesCount;
+    console.log('-------------------------------------------')
+    console.log('-------------------------------------------')
+    console.log('-------------------------------------------')
+    console.log('Resultados de las elecciones')
+    console.log('-------------------------------------------')
+    console.log('-------------------------------------------')
+    console.log('-------------------------------------------')
+    if (candidate1 > candidate2 && candidate1 > candidate3) {
+        console.log(`El candidato 1 es el ganador con ${candidate1} votos`)
+    }
+    if (candidate2 > candidate1 && candidate2 > candidate3) {
+        console.log(`El candidato 2 es el ganador con ${candidate2} votos`)
+    }
+    if (candidate3 > candidate1 && candidate3 > candidate2) {
+        console.log(`El candidato 3 es el ganador con ${candidate3} votos`)
+    }
+    if (candidate1 === candidate2 && candidate1 > candidate3) {
+        console.log(`Hubo empate entre los candidatos 1 y 2 con ${candidate1} votos y el candidato 3 obtuvo ${candidate3} votos ocupando el tercer lugar`)
+    }
+    if (candidate1 === candidate3 && candidate1 > candidate2) {
+        console.log(`Hubo empate entre los candidatos 1 y 3 con ${candidate1} votos y el candidato 2 obtuvo ${candidate2} votos ocupando el tercer lugar`)
+    }
+    if (candidate2 === candidate3 && candidate2 > candidate1) {
+        console.log(`Hubo empate entre los candidatos 2 y 3 con ${candidate2} votos y el candidato 1 obtuvo ${candidate1} votos ocupando el tercer lugar`)
+    }
+    if (candidate1 === candidate2 && candidate1 === candidate3) {
+        console.log(`Hubo empate entre los 3 candidatos con ${candidate1} votos`)
+    }
+}
+
+
+
 //problem1();
 //problem2();
 //problem3();
@@ -683,4 +754,5 @@ const problem9 = () => {
 //problem6();
 //problem7();
 //problem8();
-problem9();
+//problem9();
+problem10();

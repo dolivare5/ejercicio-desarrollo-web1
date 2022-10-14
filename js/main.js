@@ -820,6 +820,38 @@ const problem12 = () => {
     alert(`El número ${number} tiene ${numberLength} dígitos, de los cuales ${evenNumbers} son pares y ${oddNumbers} son impares. La sumatoria de los dígitos es ${sum}, la productoria es ${product} y el promedio es ${average}`)
 }
 
+
+/**
+ * De los n elementos de la serie de fibonacci diga cuantos son pares, cuantos
+ * impares y cuantos ceros.
+ */
+const problem13 = () => {
+    const n = parseInt(prompt('Ingrese el número de elementos de la serie de fibonacci'));
+    if (n === 0 || n === 1) {
+        console.log('El mínimo de elementos de la serie de fibonacci es 2');
+    }
+    if (isNaN(n) || n === undefined) {
+        alert('Número no valido, inténtelo nuevamente')
+        return
+    }
+    let fibonacci = [0, 1];
+    let even = 0;
+    let odd = 1;
+    let zero = 1;
+    /* I se inicializa en 2 porque los primeros 2 elementos de la serie de fibonacci ya están definidos */
+    for (let i = 2; i <=n; i++) {
+        fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+        if (fibonacci[i] % 2 === 0) {
+            even++;
+        } else if (fibonacci[i] % 2 !== 0) {
+            odd++;
+        } else {
+            zero++;
+        }
+    }
+    alert(`La serie de fibonacci es: ${fibonacci} \nLa cantidad de números pares es: ${even} \nLa cantidad de números impares es: ${odd} \nLa cantidad de ceros es: ${zero}`)
+}
+
 //problem1();
 //problem2();
 //problem3();
@@ -831,4 +863,5 @@ const problem12 = () => {
 //problem9();
 //problem10();
 //problem11();
-problem12();
+//problem12();
+problem13();

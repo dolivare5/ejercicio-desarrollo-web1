@@ -744,7 +744,50 @@ const problem10 = () => {
     }
 }
 
+/**
+ * De los n números primos contenidos en un intervalo (por ejemplo los números
+ * primos del 1 al 100), calcule la sumatoria, la productoria y el promedio.
+ */
+const problem11 = () => {
+    /* Se le pide al usuario que ingrese el intervalo */
+    const start = parseInt(prompt('Ingrese el inicio del intervalo'))
+    const end = parseInt(prompt('Ingrese el fin del intervalo'))
+    if (isNaN(start) || isNaN(end) || start === undefined || end === undefined) {
+        alert('Intervalo no valido, inténtelo nuevamente')
+        return
+    }
+    /* Se valida que el intervalo sea correcto */
+    if (start > end) {
+        alert('Intervalo no valido, inténtelo nuevamente')
+        return
+    }
+    /* Se crea un arreglo con los números primos del intervalo */
+    const primes = [];
+    for (let i = start; i <= end; i++) {
+        if (isPrime(i)) {
+            console.log(`El número ${i} es primo`)
+            primes.push(i);
+        }
+    }
+    /* Se calcula la sumatoria, productoria y promedio */
+    const sum = primes.reduce((acc, prime) => acc + prime, 0);
+    const product = primes.reduce((acc, prime) => acc * prime, 1);
+    const average = sum / primes.length;
+    /* Se muestran los resultados */
+    console.log(`La sumatoria de los números primos del intervalo es ${sum}, la productoria es ${product} y el promedio es ${average}`)
+}
 
+const isPrime = (n) => {
+    /* Se comienza en 2 porque 1 es un número primo */
+    for (let i = 2; i < n; i++) {
+        /* Si el número es divisible por otro número, no es primo */
+        if (n % i === 0) {
+            return false;
+        }
+    }
+    /* Si n es mayor que 1 se retorna true, de lo contrario se retorna false */
+    return n > 1;
+}
 
 //problem1();
 //problem2();
@@ -755,4 +798,5 @@ const problem10 = () => {
 //problem7();
 //problem8();
 //problem9();
-problem10();
+//problem10();
+problem11();

@@ -619,6 +619,62 @@ const addPerson = (categories) => {
     return {name, age, category};
 
 }
+
+
+/**
+ * Kia Autos premia anualmente a sus mejores vendedores de acuerdo a la
+ * siguiente tabla:
+ * Valor vendido | Comisión
+ * Menor o igual que 20 Millones | 10%
+ * Mayor de 20 Millones y menor de 40 Millones | 15%
+ * Mayor o igual de 40 Millones y menor de 80 Millones | 20%
+ * Mayor o igual de 80 millones y menor de 160 Millones | 25%
+ * De 160 Millones en adelante | 30%
+ * Realice un método que diga cuanto vendió y la comisión de los 100
+ * vendedores que tiene la empresa.
+ */
+const problem9 = () => {
+    /* El arreglo de sales guarda el valor vendido por cada vendedor */
+    const sales = [];
+    /* Genero 100 ventas aleatorias */
+    for (let i = 0; i < 100; i++) {
+        sales.push({
+            id: i + 1,
+            sales: Math.floor(Math.random() * 1000000000)
+        })
+    }
+    /* Se calcula la comisión de cada vendedor */
+    const salesCommission = sales.map((sale) => {
+        /* sale es un objeto que tiene el id del vendedor y el valor vendido */
+        const {id, sales} = sale
+        let commission = 0
+        if (sales <= 20000000) {
+            commission = sales * 0.1
+        } else if (sales > 20000000 && sales < 40000000) {
+            commission = sales * 0.15
+        } else if (sales >= 40000000 && sales < 80000000) {
+            commission = sales * 0.2
+        } else if (sales >= 80000000 && sales < 160000000) {
+            commission = sales * 0.25
+        } else {
+            commission = sales * 0.3
+        }
+        return `Vendedor ${id} - Ventas: ${sales} - Comisión: ${commission}`
+    })
+    console.log(salesCommission.join('\n'))
+    /* Se calcula el total de ventas y comisiones */
+    const totalSales = sales.reduce((acc, sale) => {
+        return acc + sale.sales
+    }, 0)
+    /* Se extraen todos los datos del vendedor que más vendió */
+    const bestSeller = sales.reduce((acc, sale) => {
+        return acc.sales > sale.sales ? acc : sale
+    }, {sales: 0});
+
+    console.log(`El total de ventas es de ${totalSales} y el vendedor que más vendió fue el ${bestSeller.id} con ${bestSeller.sales} de ventas`)
+
+}
+
 //problem1();
 //problem2();
 //problem3();
@@ -627,3 +683,4 @@ const addPerson = (categories) => {
 //problem6();
 //problem7();
 //problem8();
+problem9();

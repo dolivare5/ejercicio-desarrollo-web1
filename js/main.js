@@ -789,6 +789,37 @@ const isPrime = (n) => {
     return n > 1;
 }
 
+/**
+ * Teniendo como entrada un número entero, determinar cuantos dígitos tiene,
+ * cuantos de ellos son pares e impares, calcule la sumatoria, la productoria y
+ * el promedio de estos.
+ */
+const problem12 = () => {
+    const number = parseInt(prompt('Ingrese un número entero'));
+    if (isNaN(number) || number === undefined) {
+        alert('Número no valido, inténtelo nuevamente')
+        return
+    }
+    const numberString = number.toString();
+    const numberLength = numberString.length;
+    let evenNumbers = 0;
+    let oddNumbers = 0;
+    let sum = 0;
+    let product = 1;
+    for (let i = 0; i < numberLength; i++) {
+        const number = parseInt(numberString[i]);
+        if (number % 2 === 0) {
+            evenNumbers++;
+        } else {
+            oddNumbers++;
+        }
+        sum += number;
+        product *= number;
+    }
+    const average = sum / numberLength;
+    alert(`El número ${number} tiene ${numberLength} dígitos, de los cuales ${evenNumbers} son pares y ${oddNumbers} son impares. La sumatoria de los dígitos es ${sum}, la productoria es ${product} y el promedio es ${average}`)
+}
+
 //problem1();
 //problem2();
 //problem3();
@@ -799,4 +830,5 @@ const isPrime = (n) => {
 //problem8();
 //problem9();
 //problem10();
-problem11();
+//problem11();
+problem12();

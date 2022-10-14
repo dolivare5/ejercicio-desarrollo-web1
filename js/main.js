@@ -220,8 +220,7 @@ const problem4 = () => {
             continue;
         }
         /* Se agrega el objeto alumno al array de alumnos */
-        const student = { name, gender, age };
-        students[i] = {name, gender, age};
+        students.push({name, gender, age});
         i++;
     }
 
@@ -229,8 +228,7 @@ const problem4 = () => {
      * Se calcula el promedio de edades de hombres. Para ello se filtran los alumnos
      * que son hombres y se obtiene un array de hombres y se calcula el promedio de edades de hombres.
      */
-    console.log(students);
-    const ageMen = students.filter((student) => student.gender === 'M');
+     const ageMen = students.filter((student) => student.gender === 'M');
      const sumAgeMen = ageMen.reduce((acc, student) => acc + student.age, 0);
      const countMen = ageMen.length;
      const averageAgeMen = sumAgeMen / countMen;
@@ -539,10 +537,93 @@ const takeOutUnits = (product) => {
         }
     }
 }
+
+
+/**
+ * Un teatro otorga descuentos según la edad del cliente, determinar la cantidad
+ * del dinero que el teatro deja de percibir por cada ua de las categorias. Tomar
+ * en cuenta que los niños menores de 5 años no pueden entrar al teatro y que
+ * existe un precio único en los asientos. Los descuentos se hacen tomando en
+ * cuenta el siguiente cuadro:
+ * Edad % Descuento
+ * 5 – 14 35%
+ * 15-19 25%
+ * 20 – 45 10%
+ * 46 – 65 25%
+ * 66 en Adelante 35%
+ */
+const problem8 = () => {
+    const prices = [1000, 800, 500, 300, 200];
+    const categories = [
+        { id: 0, name: 'Niños', discount: 0},
+        { id: 1, name: 'Jovenes', discount: 0.25},
+        { id: 2, name: 'Adultos', discount: 0.1},
+        { id: 3, name: 'Adultos mayores', discount: 0.25},
+        { id: 4, name: 'Ancianos', discount: 0.35}
+    ];
+    const people = [];
+    let op = 0;
+    do {
+        op = parseInt(prompt('¿Qué desea hacer? \n1. Agregar persona \n2. Ver personas \n3. Salir'));
+        switch (op) {
+            case 1:
+                const person = addPerson(categories);
+                if (person) {
+                    people.push(person);
+                }
+                break;
+            case 2:
+                const peopleList = people.map((person) => {
+                    let {name, age, category} = person
+                    return `${name} - Edad: ${age} - Categoría: ${category.name}\n`
+                })
+                alert(`Personas en el teatro: \n${peopleList}`)
+                break;
+            case 3:
+                alert('Gracias por su visita')
+                break;
+            default:
+                alert('Opción no válida, inténtelo nuevamente')
+        }
+    } while (op !== 3){
+        /* Se calculan los ingresos totales */
+        const total = people.reduce((acc, person) => {
+            const {category} = person
+            return acc + (prices[category.id] - (prices[category.id] * category.discount))
+        }, 0)
+        /* Se calculan lo que se deja de percibir por descuentos */
+        const totalDiscount = people.reduce((acc, person) => {
+            const {category} = person
+            return acc + prices[category.id] * category.discount
+        }, 0)
+        alert(`El total de ingresos es de ${total} y lo que se deja de percibir por descuentos es de ${totalDiscount}`)
+    }
+}
+
+const addPerson = (categories) => {
+    const name = prompt('Ingrese el nombre de la persona');
+    if (!name) {
+        alert('El nombre es obligatorio');
+        return;
+    }
+    const age = parseInt(prompt('Ingrese la edad de la persona'));
+    if (!age) {
+        alert('La edad es obligatoria');
+        return;
+    }
+    if (age < 5) {
+        alert('Los niños menores de 5 años no pueden ingresar al teatro');
+        return;
+    }
+    const category = age < 15 ? categories[0] : age < 20 ? categories[1] : age < 46 ? categories[2] : age < 66 ? categories[3] : categories[4];
+    return {name, age, category};
+
+}
 //problem1();
 //problem2();
 //problem3();
 //problem4();
 //problem5();
 //problem6();
-problem7();
+//problem7();
+//problem8();

@@ -879,6 +879,34 @@ const calculateMCD = (num1, num2) => {
     return mcd;
 }
 
+/**
+ * En 1994 el país A tiene una población de 25 Millones de Habitantes y el País
+ * B de 19.9 Millones. Las tasas de crecimiento de la población son de 2% y 3%
+ * respectivamente. Desarrollar un algoritmo para informar en que año la
+ * población del país B supera la del país A.
+ */
+const problem15 = () => {
+    const countryA = {
+        population: 25000000,
+        growthRate: 2
+    }
+    const countryB = {
+        population: 19900000,
+        growthRate: 3
+    }
+    let year = 0;
+    let yearAchieved = 1994;
+    while (countryA.population > countryB.population) {
+        /* Se divide el crecimiento por 100 para obtener el porcentaje */
+        countryA.population += countryA.population * countryA.growthRate / 100;
+        countryB.population += countryB.population * countryB.growthRate / 100;
+        yearAchieved++;
+        console.log(`Año ${yearAchieved}: País A: ${countryA.population} País B: ${countryB.population} - País A tiene más población`)
+        year++;
+    }
+    console.log(`La población del país B demoró ${year} años en superar a la del país A y ocurrió en el año ${1994 + year}`)
+}
+
 //problem1();
 //problem2();
 //problem3();
@@ -892,4 +920,5 @@ const calculateMCD = (num1, num2) => {
 //problem11();
 //problem12();
 //problem13();
-problem14();
+//problem14();
+problem15();
